@@ -1,55 +1,7 @@
 'use strict';
+/* global Store, Api, $ */
 
-const API_KEY = 'AIzaSyBfSxL_aqBksA3Rp5xJNsTehokXiaE1HDQ';
 
-/*
-  We want our store to hold an array of "decorated" video objects - i.e. objects that
-  have been transformed into ONLY the necessary data we're displaying on our page. 
-  (Removes extraneous dataset from Youtube.)
-  
-  Example decorated video object:
-  
-  {
-    id: '98ds8fbsdy67',
-    title: 'Cats dancing the Macarena',
-    thumbnail: 'https://img.youtube.com/some/thumbnail.jpg'
-  }
-*/
-const store = {
-  videos: [{
-    id: '98ds8fbsdy67',
-    title: 'Cats dancing the Macarena',
-    thumbnail: 'https://img.youtube.com/some/thumbnail.jpg'
-  }]
-};
-
-// TASK: Add the Youtube Search API Base URL here:
-// Documentation is here: https://developers.google.com/youtube/v3/docs/search/list#usage
-const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
-
-/**
- * @function fetchVideos
- * Async function, responsible for calling the Youtube API with jQuery, constructing
- * the correct query object, and passing along the callback into the AJAX call.
- * @param {string}   searchTerm
- * @param {function} callback
- */
-// TASK:
-// 1. Use `searchTerm` to construct the right query object based on the Youtube API docs
-//    - Refer to curriculum assignment for help with the required parameters
-// 2. Make a getJSON call using the query object and sending the provided callback in 
-//    as the last argument
-//
-// TEST IT! Execute this function and console log the results inside the callback.
-const fetchVideos = function(searchTerm, callback) {
-  const query = {
-    part: 'snippet',
-    key: API_KEY,
-    q: searchTerm
-  };
-
-  $.getJSON(BASE_URL, query, callback);
-};
 
 /**
  * @function decorateResponse
@@ -94,17 +46,8 @@ const generateVideoItemHtml = function(video) {
   `;
 };
 
-/**
- * @function addVideosToStore
- * Store modification function to set decorated video objects
- * @param {array} videos - decorated video objects
- */
-// TASK:
-// 1. Set the received array as the value held in store.videos
-// TEST IT!
-const addVideosToStore = function(videos) {
-  store.videos = videos;
-};
+
+
 
 
 /**
@@ -116,7 +59,7 @@ const addVideosToStore = function(videos) {
 // 2. Add this array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-  const elements = store.videos.map((video) => {
+  const elements = Store.videos.map((video) => {
     return generateVideoItemHtml(video);
   });
   $('.results').html(elements);
@@ -145,9 +88,9 @@ const handleFormSubmit = function() {
     const searchTerm = $('#search-term').val();
     $('#search-term').val('');
 
-    fetchVideos(searchTerm, function (response) {
+    Api.fetchVideos(searchTerm, function (response) {
       const decorated = decorateResponse(response);
-      addVideosToStore(decorated);
+      Store.setVideos(decorated);
       render();
     });
   });
@@ -158,5 +101,4 @@ $(function () {
   // TASK:
   // 1. Run `handleFormSubmit` to bind the event listener to the DOM
   handleFormSubmit();
-  console.log(Store);
 });
