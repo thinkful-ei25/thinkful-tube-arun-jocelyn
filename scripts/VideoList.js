@@ -4,7 +4,7 @@ const VideoList = (function(){
   function generateListItem(video){
     return `
     <li>
-      <img src="${video.thumbnail}" alt="${video.title}"/>
+      <a href="https://www.youtube.com/watch?v=${video.id}"><img src="${video.thumbnail}" alt="${video.title}"/></a>
     </li>
     `;
   }
