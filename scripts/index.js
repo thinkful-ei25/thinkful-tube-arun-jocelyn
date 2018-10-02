@@ -89,7 +89,7 @@ const decorateResponse = function(response) {
 const generateVideoItemHtml = function(video) {
   return `
     <li>
-      <img src="${video.url}" alt="${video.title}"/>
+      <img src="${video.thumbnail}" alt="${video.title}"/>
     </li>
   `;
 };
