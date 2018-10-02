@@ -12,24 +12,59 @@ body {
 
 .lightbox {
     padding-top: 20px;
-    margin: auto;
-    padding-bottom: 20px; 
+    margin: 0 auto;
+    padding-bottom: 30px; 
+}
+
+.lightbox iframe {
+    width: 100%;
+    height: 100%;
+
 }
 
 .results {
     list-style: none;
-    margin: auto; 
+    margin: 0 auto; 
     padding-left: 0;
+    padding-top: 10px;
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    
 }
 
 .results li {
-    display: inline-block;
-
+    display: block;
+    padding: 10px 15px; 
 }
+/* .results li a img {
+
+} */
 
 .results-container {
-    height: 66vh;
+    /* height: 80vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 0 auto; 
+}
+
+.channel-link {
+    display: block; 
+    padding-top: 10px;
+
+}
+
+@media screen and (min-height:800px){
+    .results-container{
+        height: 80vh;
+    }
+}
+
+@media screen and (min-width:1024px){
+    .lightbox iframe {
+        min-width: 854px;
+        min-height: 480px;
+    }
 }

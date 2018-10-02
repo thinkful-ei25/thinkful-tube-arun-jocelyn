@@ -20,6 +20,8 @@ const Api = (function(){
         id: item.id.videoId,
         title: item.snippet.title,
         thumbnail: item.snippet.thumbnails.default.url,
+        channelId: item.snippet.channelId,
+        channelName: item.snippet.channelTitle,
       };
     });
   }

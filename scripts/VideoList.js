@@ -9,10 +9,17 @@ const VideoList = (function(){
     `;
   }
 
-  function generateLightbox(videoId){
+  function generateLightbox(video){
     return `
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    `
+    <iframe src="https://www.youtube.com/embed/${video.id}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    ${generateChannelLink(video)}
+    `;
+  }
+
+  function generateChannelLink(video){
+    return `
+    <a class = "channel-link" href = "http://www.youtube.com/channel/${video.channelId}">${video.channelName}</a>
+    `;
   }
 
   function getVideoIdFromElement(element){
@@ -22,7 +29,7 @@ const VideoList = (function(){
     $('.results').on('click', '.js-thumbnailLink', function(event){
       event.preventDefault();
       const videoId = getVideoIdFromElement(event.currentTarget);
-      Store.lightBoxVideoId = videoId;
+      Store.setLightboxVideo(videoId);
       render();
     });
 
@@ -44,9 +51,13 @@ const VideoList = (function(){
     const elements = Store.videos.map(video => generateListItem(video));
     $('.results').html(elements);
 
-    if (Store.lightBoxVideoId){
-      $('.js-lightbox').html(generateLightbox(Store.lightBoxVideoId));
+    if (Store.lightBoxVideo){
+      $('.js-lightbox').html(generateLightbox(Store.lightBoxVideo));
     }
+
+
+
+
   }
   return {
     render,
