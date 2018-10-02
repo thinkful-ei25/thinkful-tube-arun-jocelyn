@@ -33,6 +33,21 @@ const VideoList = (function () {
     `;
   }
 
+  function generatePaginationControls(nextPage, previousPage) {
+    const nextControl = nextPage
+      ? `<li class="pagination-controls">
+          <a href="#" data-page-token="${nextPage}">&gt;</a>
+         </li>`
+      : '';
+    const previousControl = previousPage
+      ? `<li class="pagination-controls">
+          <a href="#" data-page-token="${previousPage}">&lt;</a>
+         </li>`
+      : '';
+
+    return `${previousControl}${nextControl}`;
+  }
+
   function getVideoIdFromElement(element) {
     return $(element)
       .closest('li')
@@ -48,13 +63,28 @@ const VideoList = (function () {
     });
   }
 
+  function handlePaginationClick() {
+    $('.js-pagination-controls').on('click', 'a', (event) => {
+      event.preventDefault();
+      const pageToken = $(event.currentTarget).attr('data-page-token');
+      
+      Api.fetchVideoPage(Store.searchTerm, pageToken, (data) => {
+        Store.setVideos(data.videos);
+        Store.setPagination(data);
+        render();
+      });
+    });
+  }
+
   function handleFormSubmit() {
     $('form').submit(function (event) {
       event.preventDefault();
       const searchTerm = $('#search-term').val();
       $('#search-term').val('');
-      Api.fetchVideos(searchTerm, function (videos) {
-        Store.setVideos(videos);
+      Store.setSearchTerm(searchTerm);
+      Api.fetchVideos(Store.searchTerm, function (data) {
+        Store.setVideos(data.videos);
+        Store.setPagination(data);
         render();
       });
     });
@@ -67,10 +97,15 @@ const VideoList = (function () {
     if (Store.lightBoxVideo) {
       $('.js-lightbox').html(generateLightbox(Store.lightBoxVideo));
     }
+
+    $('.js-pagination-controls').html(
+      generatePaginationControls(Store.nextPage, Store.previousPage)
+    );
   }
   return {
     render,
     handleFormSubmit,
-    handleThumbnailClick
+    handleThumbnailClick,
+    handlePaginationClick
   };
 })();

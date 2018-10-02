@@ -13,9 +13,20 @@ const Store = (function () {
     this.lightBoxVideo = video;
   }
 
+  function setPagination(obj) {
+    this.nextPage = obj.nextPage;
+    this.previousPage = obj.previousPage;
+  }
+
+  function setSearchTerm(searchTerm) {
+    this.searchTerm = searchTerm;
+  }
+
   return {
     videos,
     setVideos,
-    setLightboxVideo
+    setLightboxVideo,
+    setPagination,
+    setSearchTerm
   };
 })();

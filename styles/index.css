@@ -56,6 +56,19 @@ body {
 
 }
 
+ul.pagination-controls {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+li.pagination-controls {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+j
+
 @media screen and (min-height:800px){
     .results-container{
         height: 80vh;
