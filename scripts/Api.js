@@ -10,7 +10,18 @@ const Api = (function(){
       key: API_KEY,
       q: searchTerm,
     };
-    $.getJSON(BASE_URL, query, callBack);
+    $.getJSON(BASE_URL, query,function(response){
+      callBack(decorateResponse(response));
+    });
+  }
+  function decorateResponse(response){
+    return response.items.map(item => {
+      return {
+        id: item.id.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.default.url,
+      };
+    });
   }
   return {
     fetchVideos,
