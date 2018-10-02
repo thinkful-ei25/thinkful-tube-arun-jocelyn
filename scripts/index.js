@@ -87,7 +87,11 @@ const decorateResponse = function(response) {
 // 1. Using the decorated object, return an HTML string containing all the expected
 // TEST IT!
 const generateVideoItemHtml = function(video) {
-
+  return `
+    <li>
+      <img src="${video.url}" alt="${video.title}"/>
+    </li>
+  `;
 };
 
 /**
@@ -112,7 +116,8 @@ const addVideosToStore = function(videos) {
 // 2. Add this array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-
+/*   const innerHTML;
+  $('.results').html(innerHTML); */
 };
 
 /**
