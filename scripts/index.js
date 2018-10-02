@@ -116,8 +116,10 @@ const addVideosToStore = function(videos) {
 // 2. Add this array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-/*   const innerHTML;
-  $('.results').html(innerHTML); */
+  const elements = store.videos.map((video) => {
+    return generateVideoItemHtml(video);
+  });
+  $('.results').html(elements);
 };
 
 /**
