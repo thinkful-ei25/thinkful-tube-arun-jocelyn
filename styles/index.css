@@ -10,3 +10,26 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.lightbox {
+    padding-top: 20px;
+    margin: auto;
+    padding-bottom: 20px; 
+}
+
+.results {
+    list-style: none;
+    margin: auto; 
+    padding-left: 0;
+}
+
+.results li {
+    display: inline-block;
+
+}
+
+.results-container {
+    height: 66vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
