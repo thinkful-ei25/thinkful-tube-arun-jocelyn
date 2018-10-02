@@ -139,7 +139,18 @@ const render = function() {
 //   g) Inside the callback, run the `render` function 
 // TEST IT!
 const handleFormSubmit = function() {
+  $('form').submit(function (event) {
+    event.preventDefault();
 
+    const searchTerm = $('#search-term').val();
+    $('#search-term').val('');
+
+    fetchVideos(searchTerm, function (response) {
+      const decorated = decorateResponse(response);
+      addVideosToStore(decorated);
+      render();
+    });
+  });
 };
 
 // When DOM is ready:
